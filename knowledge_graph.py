@@ -54,27 +54,27 @@ class KnowledgeGraph:
                     subject, relation, object_value, confidence, source = fact
                     self.add_fact(subject, relation, object_value, confidence, source)
                 elif len(fact) >= 3:
-                     subject, relation, object_value = fact
-                     self.add_fact(subject, relation, object_value)
-                 else:
-                     self.logger.warning(f"基础知识格式不正确: {fact}")
-             self.logger.info(f"从配置加载了 {len(self.config.get('basic_facts', []))} 条基础知识")
-                 
-         # 从文件加载知识
-         if knowledge_file and os.path.exists(knowledge_file):
-             self.load_from_file(knowledge_file)
-             self.logger.info(f"从 {knowledge_file} 加载了初始知识")
-         else:
-             # 如果没有配置文件和知识文件，加载默认示例知识
-             if 'basic_facts' not in self.config:
-                 self.add_fact("人工智能", "is_a", "技术领域", confidence=0.99, source="system")
-                 self.add_fact("机器学习", "is_a", "人工智能子领域", confidence=0.99, source="system")
-                 self.add_fact("深度学习", "is_a", "机器学习技术", confidence=0.98, source="system")
-                 self.add_fact("神经网络", "is_a", "深度学习模型", confidence=0.97, source="system")
-                 self.add_fact("Python", "is_a", "编程语言", confidence=0.99, source="system")
-                 self.add_fact("TensorFlow", "is_a", "深度学习框架", confidence=0.95, source="system")
-                 self.add_fact("PyTorch", "is_a", "深度学习框架", confidence=0.95, source="system")
-                 self.logger.info("加载了默认示例知识")
+                    subject, relation, object_value = fact
+                    self.add_fact(subject, relation, object_value)
+                else:
+                    print(f"基础知识格式不正确: {fact}")
+            print(f"从配置加载了 {len(self.config.get('basic_facts', []))} 条基础知识")
+        
+        # 从文件加载知识
+        if knowledge_file and os.path.exists(knowledge_file):
+            self.load_from_file(knowledge_file)
+            print(f"从 {knowledge_file} 加载了初始知识")
+        else:
+            # 如果没有配置文件和知识文件，加载默认示例知识
+            if 'basic_facts' not in self.config:
+                self.add_fact("人工智能", "is_a", "技术领域", confidence=0.99, source="system")
+                self.add_fact("机器学习", "is_a", "人工智能子领域", confidence=0.99, source="system")
+                self.add_fact("深度学习", "is_a", "机器学习技术", confidence=0.98, source="system")
+                self.add_fact("神经网络", "is_a", "深度学习模型", confidence=0.97, source="system")
+                self.add_fact("Python", "is_a", "编程语言", confidence=0.99, source="system")
+                self.add_fact("TensorFlow", "is_a", "深度学习框架", confidence=0.95, source="system")
+                self.add_fact("PyTorch", "is_a", "深度学习框架", confidence=0.95, source="system")
+                print("加载了默认示例知识")
     
     def add_fact(self, subject: str, relation: str, object: str, confidence: float = None, source: str = "agent"):
         """添加事实到知识图谱
